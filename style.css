@@ -1,0 +1,109 @@
+* {
+    margin: 0px;
+    padding: 0px;
+    font-family: Qanelas;
+    box-sizing: border-box;
+    font-size: 0;
+}
+body {
+    background-color: grey;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+.phone {
+    background-color: black;
+    height: 75vh;
+    width: 40vh;
+    border-radius: 5vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.display, .control {
+    background-color: black;
+}
+.display {
+    /* outline: 1px solid; */
+    height: 20vh;
+    /* background-color: red; */
+    border-radius: 4vh 4vh 0vh 0vh;
+    display: flex;
+    justify-content: end;
+    align-items: end;
+    font-size: 8vh;
+    width: 38vh;
+    padding-right: 2vh;
+    padding-bottom: 0.5vh;
+    color: white;
+}
+.control {
+    /* background-color: green; */
+    height: 47vh;
+    width: 38vh;
+    border-radius: 0vh 0vh 4vh 4vh;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    box-shadow: none;
+}
+button {
+    width: 8.5vh;
+    height: 8.5vh;
+    font-size: 3vh;
+    border-radius: 50vh;
+    font-weight: 500;
+    border: none;
+    transition: background-color 200ms linear, color 200ms linear;
+}
+.zero {
+    width: 18vh;
+}
+
+.grey {
+    background-color: rgba(165,165,165,255);
+}
+.grey:active {
+    background-color: rgba(217,217,217,255);
+}
+
+.orange {
+    background-color: rgba(255,159,10,255);
+    color: white;
+}
+.orange:active {
+    background-color: rgba(251,199,141,255);
+}
+
+.darkgrey {
+    background-color: rgba(52,52,52,255);
+    color: white;
+}
+.darkgrey:active {
+    background-color: rgba(115,115,115,255);
+}
+
+.symbol {
+    font-size: 4vh;
+}
+.bar {
+    position: absolute;
+    background-color: white;
+    border-radius: 50vh;
+    width: 15vh;
+    height: 0.5vh;
+    bottom: 14vh;
+}
+.del {
+    position: absolute;
+    top: 12.5vh;
+    background-color: brown;
+    border-radius: 0vh 0vh 2vh 2vh;
+    width: 20vh;
+    height: 6vh;
+    color: white;
+}
+.del:active {
+    background-color: rgb(174, 109, 109);
+}
