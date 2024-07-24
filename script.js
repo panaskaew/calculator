@@ -15,18 +15,18 @@ const subtract = document.querySelector('.subtract')
 const multiply = document.querySelector('.multiply')
 const divide = document.querySelector('.divide')
 const ac = document.querySelector('.ac')
-const decimal = document.querySelector('.decimal')
+const decimal = document.querySelector('.decimal') 
 const inverse = document.querySelector('.inverse')
 const percent = document.querySelector('.percent')
 const del = document.querySelector('.del')
 const equal = document.querySelector('.equal')
 const calc = document.querySelectorAll('.calc')
-let addStatus = false;
-let subtractStatus = false;
-let multiplyStatus = false;
-let divideStatus = false;
+let addStatus = false
+let subtractStatus = false
+let multiplyStatus = false
+let divideStatus = false
 let currentNumber = [0];
-let oldNumber = [0];
+let oldNumber = [0]; 
 let resultNumber = [0];
 
 calc.forEach(function (calc) {
@@ -55,10 +55,10 @@ zero.addEventListener('click', function () { //maybe fix zeroes in decimals late
     if (currentNumber != 0) {
     currentNumber.push(0)
     display.textContent = Number(currentNumber.join(''))
-    console.log(oldNumber + ' ' + currentNumber);
+    console.log(oldNumber + '      ' + currentNumber);
     } else {
     display.textContent = Number(currentNumber.join(''))
-    console.log(oldNumber + ' ' + currentNumber);
+    console.log(oldNumber + '      ' + currentNumber);
     }
 })
 ac.addEventListener('click', function () {
@@ -75,22 +75,20 @@ ac.addEventListener('click', function () {
     divide.style.color = 'white'
     currentNumber = [0]
     oldNumber = [0]
-    addStatus = false;
-    subtractStatus = false;
-    multiplyStatus = false;
-    divideStatus = false;
     display.textContent = Number(currentNumber)
 })
 inverse.addEventListener('click', function () {
-    if (Number(currentNumber.join('')) > 0) {
+    console.log('+/-');
+    if (Number(currentNumber.join('')) > 0) { //adds - if pos cur
         currentNumber.unshift('-')
         display.textContent = Number(currentNumber.join(''))
-    } else if (Number(currentNumber.join('')) < 0) {
+    } else if (Number(currentNumber.join('')) < 0) { //removes - if neg cur
         currentNumber.shift()
         display.textContent = Number(currentNumber.join(''))
-    } else {
+    } else { // 0 nothing
         display.textContent = Number(currentNumber.join(''))
     }
+    console.log(oldNumber + '      ' + currentNumber)
 })
 percent.addEventListener('click', function () {
     currentNumber = Number(currentNumber.join('')) / 100
@@ -109,141 +107,181 @@ del.addEventListener('click', function () {
 })
 equal.addEventListener('click', function () {
     if (addStatus == true) {
+        add.style.backgroundColor = 'rgba(255,159,10,255)'
+        add.style.color = 'white'
+        subtract.style.backgroundColor = 'rgba(255,159,10,255)'
+        subtract.style.color = 'white'
+        multiply.style.backgroundColor = 'rgba(255,159,10,255)'
+        multiply.style.color = 'white'
+        divide.style.backgroundColor = 'rgba(255,159,10,255)'
+        divide.style.color = 'white'
+        console.log('= +');
         currentNumber = String(Number(oldNumber.join('')) + Number(currentNumber.join(''))).split('')
-        currentNumber.map(function (currentNumber) {
-            if (currentNumber == '-') { // so -3 doesnt break it
-                return currentNumber
-            }   else {
-                return Number(currentNumber)
-            }
-        })
+        console.log(oldNumber + '      ' + currentNumber)
+
+        oldNumber = [0]
+        console.log(oldNumber + '      ' + currentNumber)
+
         display.textContent = Number(currentNumber.join(''))
         addStatus = false
     } else if (subtractStatus == true) {
+        add.style.backgroundColor = 'rgba(255,159,10,255)'
+        add.style.color = 'white'
+        subtract.style.backgroundColor = 'rgba(255,159,10,255)'
+        subtract.style.color = 'white'
+        multiply.style.backgroundColor = 'rgba(255,159,10,255)'
+        multiply.style.color = 'white'
+        divide.style.backgroundColor = 'rgba(255,159,10,255)'
+        divide.style.color = 'white'
+        console.log('= -');
         currentNumber = String(Number(oldNumber.join('')) - Number(currentNumber.join(''))).split('')
-        currentNumber.map(function (currentNumber) {
-            if (currentNumber == '-') {
-                return currentNumber
-            }   else {
-                return Number(currentNumber)
-            }
-        })
-        display.textContent = currentNumber.join('')
+        console.log(oldNumber + '      ' + currentNumber)
+
+        oldNumber = [0]
+        console.log(oldNumber + '      ' + currentNumber)
+
+        display.textContent = Number(currentNumber.join(''))
         subtractStatus = false
     } else if (multiplyStatus == true) {
+        add.style.backgroundColor = 'rgba(255,159,10,255)'
+        add.style.color = 'white'
+        subtract.style.backgroundColor = 'rgba(255,159,10,255)'
+        subtract.style.color = 'white'
+        multiply.style.backgroundColor = 'rgba(255,159,10,255)'
+        multiply.style.color = 'white'
+        divide.style.backgroundColor = 'rgba(255,159,10,255)'
+        divide.style.color = 'white'
+        console.log('= *');
         currentNumber = String(Number(oldNumber.join('')) * Number(currentNumber.join(''))).split('')
-        currentNumber.map(function (currentNumber) {
-            if (currentNumber == '-') {
-                return currentNumber
-            }   else {
-                return Number(currentNumber)
-            }
-        })
+        console.log(oldNumber + '      ' + currentNumber)
+
+        oldNumber = [0]
+        console.log(oldNumber + '      ' + currentNumber)
+
         display.textContent = Number(currentNumber.join(''))
         multiplyStatus = false
     } else if (divideStatus == true) {
+        add.style.backgroundColor = 'rgba(255,159,10,255)'
+        add.style.color = 'white'
+        subtract.style.backgroundColor = 'rgba(255,159,10,255)'
+        subtract.style.color = 'white'
+        multiply.style.backgroundColor = 'rgba(255,159,10,255)'
+        multiply.style.color = 'white'
+        divide.style.backgroundColor = 'rgba(255,159,10,255)'
+        divide.style.color = 'white'
+        console.log('= /');
         currentNumber = String(Number(oldNumber.join('')) / Number(currentNumber.join(''))).split('')
-        currentNumber.map(function (currentNumber) {
-            if (currentNumber == '-') {
-                return currentNumber
-            }   else {
-                return Number(currentNumber)
-            }
-        })
+        console.log(oldNumber + '      ' + currentNumber)
+
+        oldNumber = [0]
+        console.log(oldNumber + '      ' + currentNumber)
+
         display.textContent = Number(currentNumber.join(''))
         divideStatus = false
     } else {
-        display.textContent = Number(currentNumber.join(''))
+    console.log(oldNumber + '      ' + currentNumber)  
     }
 })
 add.addEventListener('click', function () {
+    console.log('+');
     addStatus = true
-    if (subtractStatus == false && multiplyStatus == false && divideStatus == false) {
-        oldNumber = currentNumber
-        currentNumber = [0]
-        console.log('add top ' + addStatus + subtractStatus + multiplyStatus + divideStatus);
-    } else {
-        subtractStatus = false
-        multiplyStatus = false
-        divideStatus = false
+    subtract.style.backgroundColor = 'rgba(255,159,10,255)'
+    subtract.style.color = 'white'
+    multiply.style.backgroundColor = 'rgba(255,159,10,255)'
+    multiply.style.color = 'white'
+    divide.style.backgroundColor = 'rgba(255,159,10,255)'
+    divide.style.color = 'white'
 
-        subtract.style.backgroundColor = 'rgba(255,159,10,255)'
-        subtract.style.color = 'white'
+    currentNumber = String(Number(oldNumber.join('')) + Number(currentNumber.join(''))).split('')
+    display.textContent = Number(currentNumber.join(''))
+    console.log(oldNumber + '      ' + currentNumber)
 
-        multiply.style.backgroundColor = 'rgba(255,159,10,255)'
-        multiply.style.color = 'white'
-
-        divide.style.backgroundColor = 'rgba(255,159,10,255)'
-        divide.style.color = 'white'
-        currentNumber = [0]
-        console.log('add bot ' + addStatus + subtractStatus + multiplyStatus + divideStatus);
-    }
+    oldNumber = currentNumber
+    console.log(oldNumber + '      ' + currentNumber)
+    
+    currentNumber = [0]
+    console.log(oldNumber + '      ' + currentNumber)
 })
 subtract.addEventListener('click', function () {
+    console.log('-');
     subtractStatus = true
-    if (addStatus == false && multiplyStatus == false && divideStatus == false) {
-        oldNumber = currentNumber
-        currentNumber = [0]
-        console.log('sub top ' + addStatus + subtractStatus + multiplyStatus + divideStatus);
+    add.style.backgroundColor = 'rgba(255,159,10,255)'
+    add.style.color = 'white'
+    multiply.style.backgroundColor = 'rgba(255,159,10,255)'
+    multiply.style.color = 'white'
+    divide.style.backgroundColor = 'rgba(255,159,10,255)'
+    divide.style.color = 'white'
+
+    if (Number(oldNumber.join('')) == 0) {
+    oldNumber = currentNumber
+    console.log(oldNumber + '      ' + currentNumber)
+    currentNumber = [0]
+    console.log(oldNumber + '      ' + currentNumber)
     } else {
-        addStatus = false
-        multiplyStatus = false
-        divideStatus = false
-        add.style.backgroundColor = 'rgba(255,159,10,255)'
-        add.style.color = 'white'
+    currentNumber = String(Number(oldNumber.join('')) - Number(currentNumber.join(''))).split('')
+    display.textContent = Number(currentNumber.join(''))
+    console.log(oldNumber + '      ' + currentNumber)
 
-        multiply.style.backgroundColor = 'rgba(255,159,10,255)'
-        multiply.style.color = 'white'
-
-        divide.style.backgroundColor = 'rgba(255,159,10,255)'
-        divide.style.color = 'white'
-        currentNumber = [0]
-        console.log('sub bot ' + addStatus + subtractStatus + multiplyStatus + divideStatus);
+    oldNumber = currentNumber
+    console.log(oldNumber + '      ' + currentNumber)
+    
+    currentNumber = [0]
+    console.log(oldNumber + '      ' + currentNumber)
     }
 })
 multiply.addEventListener('click', function () {
+    console.log('*');
     multiplyStatus = true
-    if (addStatus == false && subtractStatus == false && divideStatus == false) {
-        oldNumber = currentNumber
-        currentNumber = [0]
-        console.log('mul top ' + addStatus + subtractStatus + multiplyStatus + divideStatus);
+    subtract.style.backgroundColor = 'rgba(255,159,10,255)'
+    subtract.style.color = 'white'
+    add.style.backgroundColor = 'rgba(255,159,10,255)'
+    add.style.color = 'white'
+    divide.style.backgroundColor = 'rgba(255,159,10,255)'
+    divide.style.color = 'white'
+
+    if (Number(oldNumber.join('')) == 0) {
+    oldNumber = currentNumber
+    console.log(oldNumber + '      ' + currentNumber)
+    currentNumber = [0]
+    console.log(oldNumber + '      ' + currentNumber)
     } else {
-        addStatus = false
-        subtractStatus = false
-        divideStatus = false
-        add.style.backgroundColor = 'rgba(255,159,10,255)'
-        add.style.color = 'white'
+    currentNumber = String(Number(oldNumber.join('')) * Number(currentNumber.join(''))).split('')
+    display.textContent = Number(currentNumber.join(''))
+    console.log(oldNumber + '      ' + currentNumber)
 
-        subtract.style.backgroundColor = 'rgba(255,159,10,255)'
-        subtract.style.color = 'white'
-
-        divide.style.backgroundColor = 'rgba(255,159,10,255)'
-        divide.style.color = 'white'
-        currentNumber = [0]
-        console.log('mul bot ' + addStatus + subtractStatus + multiplyStatus + divideStatus);
+    oldNumber = currentNumber
+    console.log(oldNumber + '      ' + currentNumber)
+    
+    currentNumber = [0]
+    console.log(oldNumber + '      ' + currentNumber)
     }
 })
 divide.addEventListener('click', function () {
+    console.log('/');
     divideStatus = true
-    if (addStatus == false && subtractStatus == false && multiplyStatus == false) {
+    subtract.style.backgroundColor = 'rgba(255,159,10,255)'
+    subtract.style.color = 'white'
+    multiply.style.backgroundColor = 'rgba(255,159,10,255)'
+    multiply.style.color = 'white'
+    add.style.backgroundColor = 'rgba(255,159,10,255)'
+    add.style.color = 'white'
+
+    if (Number(oldNumber.join('')) == 0) {
         oldNumber = currentNumber
+        console.log(oldNumber + '      ' + currentNumber)
         currentNumber = [0]
-        console.log('mul top ' + addStatus + subtractStatus + multiplyStatus + divideStatus);
-    } else {
-        addStatus = false
-        subtractStatus = false
-        multiplyStatus = false
-        add.style.backgroundColor = 'rgba(255,159,10,255)'
-        add.style.color = 'white'
-
-        subtract.style.backgroundColor = 'rgba(255,159,10,255)'
-        subtract.style.color = 'white'
-
-        multiply.style.backgroundColor = 'rgba(255,159,10,255)'
-        multiply.style.color = 'white'
+        console.log(oldNumber + '      ' + currentNumber)
+        } else {
+        currentNumber = String(Number(oldNumber.join('')) / Number(currentNumber.join(''))).split('')
+        display.textContent = Number(currentNumber.join(''))
+        console.log(oldNumber + '      ' + currentNumber)
+    
+        oldNumber = currentNumber
+        console.log(oldNumber + '      ' + currentNumber)
+        
         currentNumber = [0]
-        console.log('mul bot ' + addStatus + subtractStatus + multiplyStatus + divideStatus);
-    }
+        console.log(oldNumber + '      ' + currentNumber)
+        }
 })
 function numFunc() {
     add.style.backgroundColor = 'rgba(255,159,10,255)'
@@ -264,12 +302,11 @@ one.addEventListener('click', function () {
     currentNumber.shift()
     currentNumber.push(1)
     display.textContent = Number(currentNumber.join(''))
-    console.log(oldNumber + ' ' + currentNumber);
     } else {
     currentNumber.push(1)
     display.textContent = Number(currentNumber.join(''))
-    console.log(oldNumber + ' ' + currentNumber);
     }
+        console.log(oldNumber + '      ' + currentNumber)
 })
 two.addEventListener('click', function () {
     numFunc()
@@ -277,12 +314,11 @@ two.addEventListener('click', function () {
     currentNumber.shift()
     currentNumber.push(2)
     display.textContent = Number(currentNumber.join(''))
-    console.log(oldNumber + ' ' + currentNumber);
     } else {
     currentNumber.push(2)
     display.textContent = Number(currentNumber.join(''))
-    console.log(oldNumber + ' ' + currentNumber);
     }
+        console.log(oldNumber + '      ' + currentNumber)
 })
 three.addEventListener('click', function () {
     numFunc()
@@ -290,12 +326,11 @@ three.addEventListener('click', function () {
     currentNumber.shift()
     currentNumber.push(3)
     display.textContent = Number(currentNumber.join(''))
-    console.log(oldNumber + ' ' + currentNumber);
     } else {
     currentNumber.push(3)
     display.textContent = Number(currentNumber.join(''))
-    console.log(oldNumber + ' ' + currentNumber);
     }
+        console.log(oldNumber + '      ' + currentNumber)
 })
 four.addEventListener('click', function () {
     numFunc()
@@ -303,12 +338,11 @@ four.addEventListener('click', function () {
     currentNumber.shift()
     currentNumber.push(4)
     display.textContent = Number(currentNumber.join(''))
-    console.log(oldNumber + ' ' + currentNumber);
     } else {
     currentNumber.push(4)
     display.textContent = Number(currentNumber.join(''))
-    console.log(oldNumber + ' ' + currentNumber);
     }
+        console.log(oldNumber + '      ' + currentNumber)
 })
 five.addEventListener('click', function () {
     numFunc()
@@ -316,12 +350,11 @@ five.addEventListener('click', function () {
     currentNumber.shift()
     currentNumber.push(5)
     display.textContent = Number(currentNumber.join(''))
-    console.log(oldNumber + ' ' + currentNumber);
     } else {
     currentNumber.push(5)
     display.textContent = Number(currentNumber.join(''))
-    console.log(oldNumber + ' ' + currentNumber);
     }
+        console.log(oldNumber + '      ' + currentNumber)
 })
 six.addEventListener('click', function () {
     numFunc()
@@ -329,12 +362,11 @@ six.addEventListener('click', function () {
     currentNumber.shift()
     currentNumber.push(6)
     display.textContent = Number(currentNumber.join(''))
-    console.log(oldNumber + ' ' + currentNumber);
     } else {
     currentNumber.push(6)
     display.textContent = Number(currentNumber.join(''))
-    console.log(oldNumber + ' ' + currentNumber);
     }
+        console.log(oldNumber + '      ' + currentNumber)
 })
 seven.addEventListener('click', function () {
     numFunc()
@@ -342,12 +374,11 @@ seven.addEventListener('click', function () {
     currentNumber.shift()
     currentNumber.push(7)
     display.textContent = Number(currentNumber.join(''))
-    console.log(oldNumber + ' ' + currentNumber);
     } else {
     currentNumber.push(7)
     display.textContent = Number(currentNumber.join(''))
-    console.log(oldNumber + ' ' + currentNumber);
     }
+        console.log(oldNumber + '      ' + currentNumber)
 })
 eight.addEventListener('click', function () {
     numFunc()
@@ -355,12 +386,11 @@ eight.addEventListener('click', function () {
     currentNumber.shift()
     currentNumber.push(8)
     display.textContent = Number(currentNumber.join(''))
-    console.log(oldNumber + ' ' + currentNumber);
     } else {
     currentNumber.push(8)
     display.textContent = Number(currentNumber.join(''))
-    console.log(oldNumber + ' ' + currentNumber);
     }
+        console.log(oldNumber + '      ' + currentNumber)
 })
 nine.addEventListener('click', function () {
     numFunc()
@@ -368,10 +398,9 @@ nine.addEventListener('click', function () {
     currentNumber.shift()
     currentNumber.push(9)
     display.textContent = Number(currentNumber.join(''))
-    console.log(oldNumber + ' ' + currentNumber);
     } else {
     currentNumber.push(9)
     display.textContent = Number(currentNumber.join(''))
-    console.log(oldNumber + ' ' + currentNumber);
     }
+        console.log(oldNumber + '      ' + currentNumber)
 })
