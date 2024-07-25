@@ -21,6 +21,9 @@ const percent = document.querySelector('.percent')
 const del = document.querySelector('.del')
 const equal = document.querySelector('.equal')
 const calc = document.querySelectorAll('.calc')
+let afterEqual = false
+let falseDecimal = false
+let decimalStatus = false
 let addStatus = false
 let subtractStatus = false
 let multiplyStatus = false
@@ -28,38 +31,31 @@ let divideStatus = false
 let currentNumber = [0];
 let oldNumber = [0]; 
 let resultNumber = [0];
+display.textContent = currentNumber
+// bug questboard
 
+// fix 5+5- (i dont know how to do this without rewriting the entire logic system)
+
+// decimals lmao
+function numFunc() {
+    // falseDecimal = false
+    add.style.backgroundColor = 'rgba(255,159,10,255)'
+    add.style.color = 'white'
+
+    subtract.style.backgroundColor = 'rgba(255,159,10,255)'
+    subtract.style.color = 'white'
+
+    multiply.style.backgroundColor = 'rgba(255,159,10,255)'
+    multiply.style.color = 'white'
+
+    divide.style.backgroundColor = 'rgba(255,159,10,255)'
+    divide.style.color = 'white'
+}
 calc.forEach(function (calc) {
     calc.addEventListener('click', function () {
         this.style.backgroundColor = 'white'
         this.style.color = 'rgba(255,159,10,255)'
     }) 
-})
-
-display.textContent = currentNumber
-// number returned IS an array
-decimal.addEventListener('click', function () { //terrible with zeroes fix later
-    if (currentNumber == 0) {                   // deicimals and zeroes got a ton of bugs
-    currentNumber.push('.')
-    display.textContent = (currentNumber.join(''))
-    } else if (currentNumber.join('') % 1 == 0 && currentNumber.slice(-1) != '.') { 
-    currentNumber.push('.')
-    display.textContent = Number(currentNumber.join('')) + '.'
-    } else if (currentNumber.join('') % 1 == 0) {
-    display.textContent = (Number(currentNumber.join(''))) + '.'
-    } else {
-    display.textContent = (Number(currentNumber.join('')))
-    }
-})
-zero.addEventListener('click', function () { //maybe fix zeroes in decimals later
-    if (currentNumber != 0) {
-    currentNumber.push(0)
-    display.textContent = Number(currentNumber.join(''))
-    console.log(oldNumber + '      ' + currentNumber);
-    } else {
-    display.textContent = Number(currentNumber.join(''))
-    console.log(oldNumber + '      ' + currentNumber);
-    }
 })
 ac.addEventListener('click', function () {
     add.style.backgroundColor = 'rgba(255,159,10,255)'
@@ -81,13 +77,10 @@ inverse.addEventListener('click', function () {
     console.log('+/-');
     if (Number(currentNumber.join('')) > 0) { //adds - if pos cur
         currentNumber.unshift('-')
-        display.textContent = Number(currentNumber.join(''))
     } else if (Number(currentNumber.join('')) < 0) { //removes - if neg cur
         currentNumber.shift()
-        display.textContent = Number(currentNumber.join(''))
-    } else { // 0 nothing
-        display.textContent = Number(currentNumber.join(''))
     }
+    display.textContent = Number(currentNumber.join(''))
     console.log(oldNumber + '      ' + currentNumber)
 })
 percent.addEventListener('click', function () {
@@ -95,17 +88,17 @@ percent.addEventListener('click', function () {
     display.textContent = currentNumber
     currentNumber = String(currentNumber).split('')
 })
-del.addEventListener('click', function () {
-    if (currentNumber.slice(-1) == '.') {
-    currentNumber.pop()
-    currentNumber.pop()
-    display.textContent = Number(currentNumber.join(''))
-    } else {
-    currentNumber.pop()
-    display.textContent = Number(currentNumber.join(''))
+del.addEventListener('click', function () { // del -2 bugged
+    if (currentNumber.slice(-1) == '.') {// huh??
+        currentNumber.pop()
+    } else if (currentNumber.slice(0, 1) == '-' && currentNumber.length == 2) {
+        currentNumber = [0]
     }
+    currentNumber.pop()
+    display.textContent = Number(currentNumber.join(''))
 })
 equal.addEventListener('click', function () {
+    afterEqual = true
     if (addStatus == true) {
         add.style.backgroundColor = 'rgba(255,159,10,255)'
         add.style.color = 'white'
@@ -185,6 +178,9 @@ equal.addEventListener('click', function () {
 add.addEventListener('click', function () {
     console.log('+');
     addStatus = true
+    subtractStatus = false
+    multiplyStatus = false
+    divideStatus = false
     subtract.style.backgroundColor = 'rgba(255,159,10,255)'
     subtract.style.color = 'white'
     multiply.style.backgroundColor = 'rgba(255,159,10,255)'
@@ -192,19 +188,22 @@ add.addEventListener('click', function () {
     divide.style.backgroundColor = 'rgba(255,159,10,255)'
     divide.style.color = 'white'
 
-    currentNumber = String(Number(oldNumber.join('')) + Number(currentNumber.join(''))).split('')
-    display.textContent = Number(currentNumber.join(''))
-    console.log(oldNumber + '      ' + currentNumber)
-
+    if (Number(oldNumber.join('')) != 0) {
+        currentNumber = String(Number(oldNumber.join('')) + Number(currentNumber.join(''))).split('')
+        console.log(oldNumber + '      ' + currentNumber)
+        display.textContent = Number(currentNumber.join(''))
+        }
     oldNumber = currentNumber
     console.log(oldNumber + '      ' + currentNumber)
-    
     currentNumber = [0]
     console.log(oldNumber + '      ' + currentNumber)
 })
 subtract.addEventListener('click', function () {
     console.log('-');
     subtractStatus = true
+    addStatus = false
+    multiplyStatus = false
+    divideStatus = false
     add.style.backgroundColor = 'rgba(255,159,10,255)'
     add.style.color = 'white'
     multiply.style.backgroundColor = 'rgba(255,159,10,255)'
@@ -212,26 +211,22 @@ subtract.addEventListener('click', function () {
     divide.style.backgroundColor = 'rgba(255,159,10,255)'
     divide.style.color = 'white'
 
-    if (Number(oldNumber.join('')) == 0) {
+    if (Number(oldNumber.join('')) != 0) {
+        currentNumber = String(Number(oldNumber.join('')) - Number(currentNumber.join(''))).split('')
+        console.log(oldNumber + '      ' + currentNumber)
+        display.textContent = Number(currentNumber.join(''))
+        }
     oldNumber = currentNumber
     console.log(oldNumber + '      ' + currentNumber)
     currentNumber = [0]
     console.log(oldNumber + '      ' + currentNumber)
-    } else {
-    currentNumber = String(Number(oldNumber.join('')) - Number(currentNumber.join(''))).split('')
-    display.textContent = Number(currentNumber.join(''))
-    console.log(oldNumber + '      ' + currentNumber)
-
-    oldNumber = currentNumber
-    console.log(oldNumber + '      ' + currentNumber)
-    
-    currentNumber = [0]
-    console.log(oldNumber + '      ' + currentNumber)
-    }
 })
 multiply.addEventListener('click', function () {
     console.log('*');
     multiplyStatus = true
+    addStatus = false
+    subtractStatus = false
+    divideStatus = false
     subtract.style.backgroundColor = 'rgba(255,159,10,255)'
     subtract.style.color = 'white'
     add.style.backgroundColor = 'rgba(255,159,10,255)'
@@ -239,26 +234,22 @@ multiply.addEventListener('click', function () {
     divide.style.backgroundColor = 'rgba(255,159,10,255)'
     divide.style.color = 'white'
 
-    if (Number(oldNumber.join('')) == 0) {
+    if (Number(oldNumber.join('')) != 0) {
+        currentNumber = String(Number(oldNumber.join('')) * Number(currentNumber.join(''))).split('')
+        console.log(oldNumber + '      ' + currentNumber)
+        display.textContent = Number(currentNumber.join(''))
+        }
     oldNumber = currentNumber
     console.log(oldNumber + '      ' + currentNumber)
     currentNumber = [0]
     console.log(oldNumber + '      ' + currentNumber)
-    } else {
-    currentNumber = String(Number(oldNumber.join('')) * Number(currentNumber.join(''))).split('')
-    display.textContent = Number(currentNumber.join(''))
-    console.log(oldNumber + '      ' + currentNumber)
-
-    oldNumber = currentNumber
-    console.log(oldNumber + '      ' + currentNumber)
-    
-    currentNumber = [0]
-    console.log(oldNumber + '      ' + currentNumber)
-    }
 })
 divide.addEventListener('click', function () {
     console.log('/');
     divideStatus = true
+    addStatus = false
+    subtractStatus = false
+    multiplyStatus = false
     subtract.style.backgroundColor = 'rgba(255,159,10,255)'
     subtract.style.color = 'white'
     multiply.style.backgroundColor = 'rgba(255,159,10,255)'
@@ -266,141 +257,241 @@ divide.addEventListener('click', function () {
     add.style.backgroundColor = 'rgba(255,159,10,255)'
     add.style.color = 'white'
 
-    if (Number(oldNumber.join('')) == 0) {
-        oldNumber = currentNumber
-        console.log(oldNumber + '      ' + currentNumber)
-        currentNumber = [0]
-        console.log(oldNumber + '      ' + currentNumber)
-        } else {
+    if (Number(oldNumber.join('')) != 0) {
         currentNumber = String(Number(oldNumber.join('')) / Number(currentNumber.join(''))).split('')
+        console.log(oldNumber + '      ' + currentNumber)
         display.textContent = Number(currentNumber.join(''))
-        console.log(oldNumber + '      ' + currentNumber)
-    
-        oldNumber = currentNumber
-        console.log(oldNumber + '      ' + currentNumber)
-        
-        currentNumber = [0]
-        console.log(oldNumber + '      ' + currentNumber)
         }
+    oldNumber = currentNumber
+    console.log(oldNumber + '      ' + currentNumber)
+    currentNumber = [0]
+    console.log(oldNumber + '      ' + currentNumber)
 })
-function numFunc() {
-    add.style.backgroundColor = 'rgba(255,159,10,255)'
-    add.style.color = 'white'
+decimal.addEventListener('click', function () { //terrible bandage fix
+    console.log('.');
+    if (Number(currentNumber.join('')) % 1 == 0) { //is whole num
+        currentNumber.push('.')
+        console.log('works');
+        display.textContent = Number(currentNumber.join('')) + '.'
+        falseDecimal = true
+    } else {
+        display.textContent = Number(currentNumber.join(''))
+    }
+})
+zero.addEventListener('click', function () {
+    console.log(falseDecimal);
 
-    subtract.style.backgroundColor = 'rgba(255,159,10,255)'
-    subtract.style.color = 'white'
-
-    multiply.style.backgroundColor = 'rgba(255,159,10,255)'
-    multiply.style.color = 'white'
-
-    divide.style.backgroundColor = 'rgba(255,159,10,255)'
-    divide.style.color = 'white'
-}
+    
+    if (currentNumber.slice(-1) == 0) {
+        falseDecimal = true
+        console.log('bruh what');
+    }
+    console.log(falseDecimal);
+    if (falseDecimal == false) {
+        if (currentNumber != 0) {
+        currentNumber.push(0)
+        }
+        display.textContent = Number(currentNumber.join(''))
+        console.log(oldNumber + '   normal   ' + currentNumber);
+    } else {
+        let zeroAmount = 1
+        for (let i = currentNumber.length - 1; i >= 0; i--) {
+            if (currentNumber[i] == 0) {
+                zeroAmount++
+            } else {
+                break;
+            }
+        }
+        if (currentNumber != 0) {
+            currentNumber.push(0)
+        }
+        if (Number(currentNumber.join('')) % 1 == 0 && decimalStatus == false) {
+            display.textContent = Number(currentNumber.join('')) + '.' + '0'.repeat(zeroAmount)
+            decimalStatus = true
+        } else {
+            display.textContent = Number(currentNumber.join('')) + '0'.repeat(zeroAmount)
+        }
+        
+        console.log(oldNumber + '   nigga   ' + currentNumber);
+    }
+})
 one.addEventListener('click', function () {
     numFunc()
-    if (currentNumber[0] == 0) {
-    currentNumber.shift()
-    currentNumber.push(1)
-    display.textContent = Number(currentNumber.join(''))
-    } else {
-    currentNumber.push(1)
-    display.textContent = Number(currentNumber.join(''))
-    }
+    if (afterEqual == false) {
+        if (currentNumber[0] == 0) {
+            currentNumber.shift()
+        }
+        currentNumber.push(1)
+        display.textContent = Number(currentNumber.join(''))
         console.log(oldNumber + '      ' + currentNumber)
+    } else {
+        afterEqual = false
+        currentNumber = [0]
+        if (currentNumber[0] == 0) {
+            currentNumber.shift()
+        }
+            currentNumber.push(1)
+            display.textContent = Number(currentNumber.join(''))
+            console.log(oldNumber + '      ' + currentNumber)
+    }
 })
 two.addEventListener('click', function () {
     numFunc()
-    if (currentNumber[0] == 0) {
-    currentNumber.shift()
-    currentNumber.push(2)
-    display.textContent = Number(currentNumber.join(''))
-    } else {
-    currentNumber.push(2)
-    display.textContent = Number(currentNumber.join(''))
-    }
+    if (afterEqual == false) {
+        if (currentNumber[0] == 0) {
+            currentNumber.shift()
+        }
+        currentNumber.push(2)
+        display.textContent = Number(currentNumber.join(''))
         console.log(oldNumber + '      ' + currentNumber)
+    } else {
+        afterEqual = false
+        currentNumber = [0]
+        if (currentNumber[0] == 0) {
+            currentNumber.shift()
+        }
+            currentNumber.push(2)
+            display.textContent = Number(currentNumber.join(''))
+            console.log(oldNumber + '      ' + currentNumber)
+    }
 })
 three.addEventListener('click', function () {
     numFunc()
-    if (currentNumber[0] == 0) {
-    currentNumber.shift()
-    currentNumber.push(3)
-    display.textContent = Number(currentNumber.join(''))
-    } else {
-    currentNumber.push(3)
-    display.textContent = Number(currentNumber.join(''))
-    }
+    if (afterEqual == false) {
+        if (currentNumber[0] == 0) {
+            currentNumber.shift()
+        }
+        currentNumber.push(3)
+        display.textContent = Number(currentNumber.join(''))
         console.log(oldNumber + '      ' + currentNumber)
+    } else {
+        afterEqual = false
+        currentNumber = [0]
+        if (currentNumber[0] == 0) {
+            currentNumber.shift()
+        }
+            currentNumber.push(3)
+            display.textContent = Number(currentNumber.join(''))
+            console.log(oldNumber + '      ' + currentNumber)
+    }
 })
 four.addEventListener('click', function () {
     numFunc()
-    if (currentNumber[0] == 0) {
-    currentNumber.shift()
-    currentNumber.push(4)
-    display.textContent = Number(currentNumber.join(''))
-    } else {
-    currentNumber.push(4)
-    display.textContent = Number(currentNumber.join(''))
-    }
+    if (afterEqual == false) {
+        if (currentNumber[0] == 0) {
+            currentNumber.shift()
+        }
+        currentNumber.push(4)
+        display.textContent = Number(currentNumber.join(''))
         console.log(oldNumber + '      ' + currentNumber)
+    } else {
+        afterEqual = false
+        currentNumber = [0]
+        if (currentNumber[0] == 0) {
+            currentNumber.shift()
+        }
+            currentNumber.push(4)
+            display.textContent = Number(currentNumber.join(''))
+            console.log(oldNumber + '      ' + currentNumber)
+    }
 })
 five.addEventListener('click', function () {
     numFunc()
-    if (currentNumber[0] == 0) {
-    currentNumber.shift()
-    currentNumber.push(5)
-    display.textContent = Number(currentNumber.join(''))
-    } else {
-    currentNumber.push(5)
-    display.textContent = Number(currentNumber.join(''))
-    }
+    if (afterEqual == false) {
+        if (currentNumber[0] == 0) {
+            currentNumber.shift()
+        }
+        currentNumber.push(5)
+        display.textContent = Number(currentNumber.join(''))
         console.log(oldNumber + '      ' + currentNumber)
+    } else {
+        afterEqual = false
+        currentNumber = [0]
+        if (currentNumber[0] == 0) {
+            currentNumber.shift()
+        }
+            currentNumber.push(5)
+            display.textContent = Number(currentNumber.join(''))
+            console.log(oldNumber + '      ' + currentNumber)
+    }
 })
 six.addEventListener('click', function () {
     numFunc()
-    if (currentNumber[0] == 0) {
-    currentNumber.shift()
-    currentNumber.push(6)
-    display.textContent = Number(currentNumber.join(''))
-    } else {
-    currentNumber.push(6)
-    display.textContent = Number(currentNumber.join(''))
-    }
+    if (afterEqual == false) {
+        if (currentNumber[0] == 0) {
+            currentNumber.shift()
+        }
+        currentNumber.push(6)
+        display.textContent = Number(currentNumber.join(''))
         console.log(oldNumber + '      ' + currentNumber)
+    } else {
+        afterEqual = false
+        currentNumber = [0]
+        if (currentNumber[0] == 0) {
+            currentNumber.shift()
+        }
+            currentNumber.push(6)
+            display.textContent = Number(currentNumber.join(''))
+            console.log(oldNumber + '      ' + currentNumber)
+    }
 })
 seven.addEventListener('click', function () {
     numFunc()
-    if (currentNumber[0] == 0) {
-    currentNumber.shift()
-    currentNumber.push(7)
-    display.textContent = Number(currentNumber.join(''))
-    } else {
-    currentNumber.push(7)
-    display.textContent = Number(currentNumber.join(''))
-    }
+    if (afterEqual == false) {
+        if (currentNumber[0] == 0) {
+            currentNumber.shift()
+        }
+        currentNumber.push(7)
+        display.textContent = Number(currentNumber.join(''))
         console.log(oldNumber + '      ' + currentNumber)
+    } else {
+        afterEqual = false
+        currentNumber = [0]
+        if (currentNumber[0] == 0) {
+            currentNumber.shift()
+        }
+            currentNumber.push(7)
+            display.textContent = Number(currentNumber.join(''))
+            console.log(oldNumber + '      ' + currentNumber)
+    }
 })
 eight.addEventListener('click', function () {
     numFunc()
-    if (currentNumber[0] == 0) {
-    currentNumber.shift()
-    currentNumber.push(8)
-    display.textContent = Number(currentNumber.join(''))
-    } else {
-    currentNumber.push(8)
-    display.textContent = Number(currentNumber.join(''))
-    }
+    if (afterEqual == false) {
+        if (currentNumber[0] == 0) {
+            currentNumber.shift()
+        }
+        currentNumber.push(8)
+        display.textContent = Number(currentNumber.join(''))
         console.log(oldNumber + '      ' + currentNumber)
+    } else {
+        afterEqual = false
+        currentNumber = [0]
+        if (currentNumber[0] == 0) {
+            currentNumber.shift()
+        }
+            currentNumber.push(8)
+            display.textContent = Number(currentNumber.join(''))
+            console.log(oldNumber + '      ' + currentNumber)
+    }
 })
 nine.addEventListener('click', function () {
     numFunc()
-    if (currentNumber[0] == 0) {
-    currentNumber.shift()
-    currentNumber.push(9)
-    display.textContent = Number(currentNumber.join(''))
-    } else {
-    currentNumber.push(9)
-    display.textContent = Number(currentNumber.join(''))
-    }
+    if (afterEqual == false) {
+        if (currentNumber[0] == 0) {
+            currentNumber.shift()
+        }
+        currentNumber.push(9)
+        display.textContent = Number(currentNumber.join(''))
         console.log(oldNumber + '      ' + currentNumber)
+    } else {
+        afterEqual = false
+        currentNumber = [0]
+        if (currentNumber[0] == 0) {
+            currentNumber.shift()
+        }
+            currentNumber.push(9)
+            display.textContent = Number(currentNumber.join(''))
+            console.log(oldNumber + '      ' + currentNumber)
+    }
 })
