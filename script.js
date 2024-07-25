@@ -36,9 +36,7 @@ display.textContent = currentNumber
 
 // fix 5+5- (i dont know how to do this without rewriting the entire logic system)
 
-// decimals lmao
 function numFunc() {
-    // falseDecimal = false
     add.style.backgroundColor = 'rgba(255,159,10,255)'
     add.style.color = 'white'
 
@@ -271,7 +269,6 @@ decimal.addEventListener('click', function () { //terrible bandage fix
     console.log('.');
     if (Number(currentNumber.join('')) % 1 == 0) { //is whole num
         currentNumber.push('.')
-        console.log('works');
         display.textContent = Number(currentNumber.join('')) + '.'
         falseDecimal = true
     } else {
@@ -284,7 +281,6 @@ zero.addEventListener('click', function () {
     
     if (currentNumber.slice(-1) == 0) {
         falseDecimal = true
-        console.log('bruh what');
     }
     console.log(falseDecimal);
     if (falseDecimal == false) {
@@ -292,7 +288,7 @@ zero.addEventListener('click', function () {
         currentNumber.push(0)
         }
         display.textContent = Number(currentNumber.join(''))
-        console.log(oldNumber + '   normal   ' + currentNumber);
+        console.log(oldNumber + '      ' + currentNumber);
     } else {
         let zeroAmount = 1
         for (let i = currentNumber.length - 1; i >= 0; i--) {
@@ -312,7 +308,7 @@ zero.addEventListener('click', function () {
             display.textContent = Number(currentNumber.join('')) + '0'.repeat(zeroAmount)
         }
         
-        console.log(oldNumber + '   nigga   ' + currentNumber);
+        console.log(oldNumber + '      ' + currentNumber);
     }
 })
 one.addEventListener('click', function () {
