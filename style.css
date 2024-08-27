@@ -63,6 +63,7 @@ button {
 
 .grey {
     background-color: rgba(165,165,165,255);
+    color: black;
 }
 .grey:active {
     background-color: rgba(217,217,217,255);
