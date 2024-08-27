@@ -1,3 +1,5 @@
+//not too proud of this one. couldve done a better job
+// 6/10
 const body = document.querySelector('body')
 const display = document.querySelector('.display')
 const zero = document.querySelector('.zero')
@@ -35,6 +37,9 @@ display.textContent = currentNumber
 // bug questboard
 
 // fix 5+5- (i dont know how to do this without rewriting the entire logic system)
+// maybe make the calc on BOTH symbols and numbers?
+// do it later me
+// and 0 is a bit broken
 
 function numFunc() {
     add.style.backgroundColor = 'rgba(255,159,10,255)'

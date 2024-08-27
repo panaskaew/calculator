@@ -1,7 +1,7 @@
 * {
     margin: 0px;
     padding: 0px;
-    font-family: Qanelas;
+    font-family: roboto;
     box-sizing: border-box;
     font-size: 0;
 }
@@ -86,14 +86,6 @@ button {
 
 .symbol {
     font-size: 4vh;
-}
-.bar {
-    position: absolute;
-    background-color: white;
-    border-radius: 50vh;
-    width: 15vh;
-    height: 0.5vh;
-    bottom: 14vh;
 }
 .del {
     position: absolute;
